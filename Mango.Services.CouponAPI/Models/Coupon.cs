@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Mango.Services.CouponAPI.Controllers.Models
+namespace Mango.Services.CouponAPI.Models
 {
     public class Coupon
     {
@@ -8,13 +8,13 @@ namespace Mango.Services.CouponAPI.Controllers.Models
         public int CouponId { get; set; }
 
         [Required]
-        public string CouponName { get; set; } = String.Empty;
+        public string CouponName { get; set; } = string.Empty;
 
         [Required]
-        public int DiscountAmout{ get; set; }
-        
+        public int DiscountAmout { get; set; }
+
         public int MinAmout { get; set; }
-        
+
         public DateTime LastUpdate { get; set; }
     }
 }
