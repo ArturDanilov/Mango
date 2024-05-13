@@ -11,7 +11,7 @@ namespace Mango.Services.CouponAPI.Controllers.Models
         public string CouponName { get; set; } = String.Empty;
 
         [Required]
-        public string DiscountAmout{ get; set; } = String.Empty;
+        public int DiscountAmout{ get; set; }
         
         public int MinAmout { get; set; }
         
