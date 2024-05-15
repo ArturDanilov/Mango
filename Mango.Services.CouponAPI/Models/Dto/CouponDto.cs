@@ -6,8 +6,8 @@
 
         public string CouponCode { get; set; } = string.Empty;
 
-        public int DiscountAmout { get; set; }
+        public int DiscountAmount { get; set; }
 
-        public int MinAmout { get; set; }
+        public int MinAmount { get; set; }
     }
 }
