@@ -1,6 +1,5 @@
 ﻿using Mango.Services.AuthAPI.Models.Dto;
 using Mango.Services.AuthAPI.Service.IService;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mango.Services.AuthAPI.Controllers
@@ -10,20 +9,20 @@ namespace Mango.Services.AuthAPI.Controllers
     public class AuthAPIController : ControllerBase
     {
         private readonly IAuthService _authService;
-        private ResponseDto _response;
+        protected ResponseDto _response;
         public AuthAPIController(IAuthService authService)
         {
             _authService = authService;
-            _response = new ResponseDto();
+            _response = new ();
         }
 
         [HttpPost("register")]
-        public async Task<IActionResult> Registert([FromBody] RegistrationRequestDto dto)
+        public async Task<IActionResult> Registert([FromBody] RegistrationRequestDto model)
         {
-            var errorMessage = await _authService.Register(dto);
-            if(!string.IsNullOrEmpty(errorMessage))
+            var errorMessage = await _authService.Register(model);
+            if (!string.IsNullOrEmpty(errorMessage))
             {
-                _response.IsSuccess = true;
+                _response.IsSuccess = false;
                 _response.Message = errorMessage;
                 return BadRequest(_response);
             }
@@ -31,10 +30,10 @@ namespace Mango.Services.AuthAPI.Controllers
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginRequestDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginRequestDto model)
         {
-            var loginResponse = await _authService.Login(dto);
-            if(loginResponse.User == null)
+            var loginResponse = await _authService.Login(model);
+            if (loginResponse.User == null)
             {
                 _response.IsSuccess = false;
                 _response.Message = "Username or Password is incorrect";
@@ -45,16 +44,16 @@ namespace Mango.Services.AuthAPI.Controllers
         }
 
         [HttpPost("AssignRole")]
-        public async Task<IActionResult> AssignRole([FromBody] RegistrationRequestDto dto)
+        public async Task<IActionResult> AssignRole([FromBody] RegistrationRequestDto model)
         {
-            var assignRoleSuccessful = await _authService.AssignRole(dto.Email, dto.Role.ToUpper());
-            if(!assignRoleSuccessful)
+            var assignRoleSuccessful = await _authService.AssignRole(model.Email, model.Role.ToUpper());
+            if (!assignRoleSuccessful)
             {
                 _response.IsSuccess = false;
                 _response.Message = "Error Encountered";
                 return BadRequest(_response);
             }
-            return Ok(assignRoleSuccessful);
+            return Ok(_response);
         }
     }
 }
