@@ -7,7 +7,7 @@ namespace Mango.Web.Controllers
 {
     public class CouponController : Controller
     {
-        private ICouponService _couponService;
+        private readonly ICouponService _couponService;
         public CouponController(ICouponService couponService)
         {
             _couponService = couponService;
