@@ -40,7 +40,7 @@ namespace Mango.Services.AuthAPI.Controllers
                 return BadRequest(_response);
             }
             _response.Result = loginResponse;
-            return Ok(loginResponse);
+            return Ok(_response);
         }
 
         [HttpPost("AssignRole")]
